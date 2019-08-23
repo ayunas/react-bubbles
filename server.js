@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const CORS = require("cors");
+let colors = require('./colors.js');
 
 const app = express();
 const token =
@@ -8,86 +9,6 @@ const token =
 
 app.use(bodyParser.json());
 app.use(CORS());
-
-let colors = [
-  {
-    color: "aliceblue",
-    code: {
-      hex: "#f0f8ff"
-    },
-    id: 1
-  },
-  {
-    color: "limegreen",
-    code: {
-      hex: "#99ddbc"
-    },
-    id: 2
-  },
-  {
-    color: "aqua",
-    code: {
-      hex: "#00ffff"
-    },
-    id: 3
-  },
-  {
-    color: "aquamarine",
-    code: {
-      hex: "#7fffd4"
-    },
-    id: 4
-  },
-  {
-    color: "lilac",
-    code: {
-      hex: "#9a99dd"
-    },
-    id: 5
-  },
-  {
-    color: "softpink",
-    code: {
-      hex: "#dd99ba"
-    },
-    id: 6
-  },
-  {
-    color: "bisque",
-    code: {
-      hex: "#dd9a99"
-    },
-    id: 7
-  },
-  {
-    color: "softyellow",
-    code: {
-      hex: "#dcdd99"
-    },
-    id: 8
-  },
-  {
-    color: "blanchedalmond",
-    code: {
-      hex: "#ffebcd"
-    },
-    id: 9
-  },
-  {
-    color: "blue",
-    code: {
-      hex: "#6093ca"
-    },
-    id: 10
-  },
-  {
-    color: "blueviolet",
-    code: {
-      hex: "#8a2be2"
-    },
-    id: 11
-  }
-];
 
 let nextId = 12;
 
@@ -131,6 +52,9 @@ app.post("/api/colors", authenticator, (req, res) => {
 });
 
 app.put("/api/colors/:id", authenticator, (req, res) => {
+
+  console.log('req.params.id', req.params.id, 'req.body', req.body);
+
   if (!req.params.id)
     res.status(400).send("Your request is missing the color id");
   if (req.body.id === undefined || !req.body.color || !req.body.code) {
